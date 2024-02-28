@@ -1,7 +1,7 @@
 import sys
 
 import pygame
-
+from settings import Settings
 
 class AlienInvasion:
     """Класс для управления ресурсами и поведением игры"""
@@ -12,13 +12,14 @@ class AlienInvasion:
 
         #   инициализируем настройки для нормальной работы pygame
         pygame.init()
+        # иннициализируем settings.py с настройками
+        self.settings = Settings()
 
         #   создаем окно для игры
-        self.screen = pygame.display.set_mode((1200, 800))
+        self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
         #   называем окно
-        pygame.display.set_caption('Инопланетное вторжение')
-        # Устанавливаем цвет окна
-        self.bg_color = (255, 255, 255)
+        pygame.display.set_caption(self.settings.name_window)
+
 
     def run_game(self):
 
@@ -36,7 +37,7 @@ class AlienInvasion:
 
             # перерисовывается экран в белый цвет
             print('Крашу экран в белый цвет')
-            self.screen.fill(self.bg_color)
+            self.screen.fill(self.settings.bg_color)
 
             # с каждым новым выполнением цикла while, стирает старый экран
             print('Стираю старый экран')
