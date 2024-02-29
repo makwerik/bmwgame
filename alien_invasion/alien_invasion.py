@@ -2,6 +2,8 @@ import sys
 
 import pygame
 from settings import Settings
+from ship import Ship
+
 
 class AlienInvasion:
     """Класс для управления ресурсами и поведением игры"""
@@ -19,6 +21,9 @@ class AlienInvasion:
         self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
         #   называем окно
         pygame.display.set_caption(self.settings.name_window)
+
+        # Вызываем наш бумер и передаем туда весь класс alien
+        self.ship = Ship(self)
 
 
     def run_game(self):
@@ -38,6 +43,9 @@ class AlienInvasion:
             # перерисовывается экран в белый цвет
             print('Крашу экран в белый цвет')
             self.screen.fill(self.settings.bg_color)
+
+            # Рисую бумер после цикла
+            self.ship.blitme()
 
             # с каждым новым выполнением цикла while, стирает старый экран
             print('Стираю старый экран')
