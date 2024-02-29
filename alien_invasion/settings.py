@@ -12,4 +12,4 @@ class Settings:
         # Цвет окна
         self.bg_color = (255, 255, 255)
         # Название окна
-        self.name_window = 'Инопланетное вторжение'
+        self.name_window = 'Вторжение Маквэриков'
