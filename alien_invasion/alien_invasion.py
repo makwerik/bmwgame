@@ -25,31 +25,42 @@ class AlienInvasion:
         # Вызываем наш бумер и передаем туда весь класс alien
         self.ship = Ship(self)
 
-
     def run_game(self):
 
         """Запуск основного цикла игры"""
 
         while True:
-            # В цикле фор отслеживаем события с клавиатуры и мыши
-            for event in pygame.event.get():
-                print(f'Событие: {event.type}')
-
-                if event.type == pygame.QUIT:
-                    print(f'Закрытие окна {event.type}')
-                    sys.exit()
+            self._check_events()
+            self._update_screen()
 
 
-            # перерисовывается экран в белый цвет
-            print('Крашу экран в белый цвет')
-            self.screen.fill(self.settings.bg_color)
 
-            # Рисую бумер после цикла
-            self.ship.blitme()
+    def _check_events(self):
 
-            # с каждым новым выполнением цикла while, стирает старый экран
-            print('Стираю старый экран')
-            pygame.display.flip()
+        """Метод для отслежнивания событий с клавиатуры и мыши"""
+
+        # В цикле фор отслеживаем события с клавиатуры и мыши
+        for event in pygame.event.get():
+            print(f'Событие: {event.type}')
+
+            if event.type == pygame.QUIT:
+                print(f'Закрытие окна {event.type}')
+                sys.exit()
+
+    def _update_screen(self):
+
+        """ Метод обновления изображений на экране и отображение нового экрана"""
+
+        # перерисовывается экран в белый цвет
+        print('Крашу экран в белый цвет')
+        self.screen.fill(self.settings.bg_color)
+
+        # Рисую бумер после цикла
+        self.ship.blitme()
+
+        # с каждым новым выполнением цикла while, стирает старый экран
+        print('Стираю старый экран')
+        pygame.display.flip()
 
 
 if __name__ == '__main__':
