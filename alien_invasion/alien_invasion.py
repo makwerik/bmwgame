@@ -46,20 +46,26 @@ class AlienInvasion:
             if event.type == pygame.QUIT:
                 print(f'Закрытие окна {event.type}')
                 sys.exit()
+            #Отслеживаем нажатие клавиш
+            elif event.type == pygame.KEYDOWN:
+                # Вправо
+                if event.key == pygame.K_RIGHT:
+                    print('Нажали правую клавишу')
+                    self.ship.rect.x += 1
 
     def _update_screen(self):
 
         """ Метод обновления изображений на экране и отображение нового экрана"""
 
         # перерисовывается экран в белый цвет
-        print('Крашу экран в белый цвет')
+        # print('Крашу экран в белый цвет')
         self.screen.fill(self.settings.bg_color)
 
         # Рисую бумер после цикла
         self.ship.blitme()
 
         # с каждым новым выполнением цикла while, стирает старый экран
-        print('Стираю старый экран')
+        # print('Стираю старый экран')
         pygame.display.flip()
 
 
