@@ -25,12 +25,16 @@ class AlienInvasion:
         # Вызываем наш бумер и передаем туда весь класс alien
         self.ship = Ship(self)
 
+
+
     def run_game(self):
 
         """Запуск основного цикла игры"""
 
         while True:
             self._check_events()
+            # Обновляется позиция коробля после проверки клавиатуры, но перед обновлением экрана
+            self.ship.update()
             self._update_screen()
 
 
@@ -48,10 +52,15 @@ class AlienInvasion:
                 sys.exit()
             #Отслеживаем нажатие клавиш
             elif event.type == pygame.KEYDOWN:
-                # Вправо
+                # Вправо нажали клавишу устанавливает флаг Тру и корабль перемещается вправо пока не отпустят клавишу
                 if event.key == pygame.K_RIGHT:
                     print('Нажали правую клавишу')
-                    self.ship.rect.x += 1
+                    self.ship.moving_right = True
+    #             Отпустили клавишу
+            elif event.type == pygame.KEYUP:
+                if event.key == pygame.K_RIGHT:
+                    print('Отпустиили правую клавишу')
+                    self.ship.moving_right = False
 
     def _update_screen(self):
 
