@@ -19,14 +19,18 @@ class Ship:
         """Каждый новый бумер появляется у нижнего края экрана"""
         self.rect.midbottom = self.screen_rect.midbottom
 
-        """ФЛАГ ПЕРЕМЕШЕНИЯ"""
+        """ФЛАГ ПЕРЕМЕЩЕНИЯ"""
         self.moving_right = False
+        self.moving_left = False
+
 
 
     def update(self):
-        """Перемещает корабль вправо, если клавиша нажата"""
+        """Перемещает корабль вправо или влево, если клавиша нажата"""
         if self.moving_right:
-            self.rect.x +=1
+            self.rect.x += 1
+        if self.moving_left:
+            self.rect.x -= 1
 
     def blitme(self):
         """Рисуем бумер"""
