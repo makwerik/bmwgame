@@ -52,15 +52,21 @@ class AlienInvasion:
                 sys.exit()
             #Отслеживаем нажатие клавиш
             elif event.type == pygame.KEYDOWN:
-                # Вправо нажали клавишу устанавливает флаг Тру и корабль перемещается вправо пока не отпустят клавишу
+                # Вправо нажали клавишу устанавливает флаг Тру и корабль перемещается вправо или влево пока не отпустят клавишу
                 if event.key == pygame.K_RIGHT:
                     print('Нажали правую клавишу')
                     self.ship.moving_right = True
+                elif event.key == pygame.K_LEFT:
+                    print('Нажали левую клавишу')
+                    self.ship.moving_left = Trueфв
     #             Отпустили клавишу
             elif event.type == pygame.KEYUP:
                 if event.key == pygame.K_RIGHT:
                     print('Отпустиили правую клавишу')
                     self.ship.moving_right = False
+                elif event.key == pygame.K_LEFT:
+                    print('Отпустиили левую клавишу')
+                    self.ship.moving_left = False
 
     def _update_screen(self):
 
