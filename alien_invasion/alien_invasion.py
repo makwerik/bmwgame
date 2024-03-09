@@ -58,7 +58,7 @@ class AlienInvasion:
                     self.ship.moving_right = True
                 elif event.key == pygame.K_LEFT:
                     print('Нажали левую клавишу')
-                    self.ship.moving_left = Trueфв
+                    self.ship.moving_left = True
     #             Отпустили клавишу
             elif event.type == pygame.KEYUP:
                 if event.key == pygame.K_RIGHT:
