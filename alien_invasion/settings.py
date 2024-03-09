@@ -13,3 +13,6 @@ class Settings:
         self.bg_color = (255, 255, 255)
         # Название окна
         self.name_window = 'Вторжение Маквэриков'
+
+        # Настройка корабля
+        self.ship_speed = 1.5
