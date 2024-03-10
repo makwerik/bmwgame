@@ -32,10 +32,10 @@ class Ship:
 
     def update(self):
         """Перемещает корабль вправо или влево, если клавиша нажата"""
-        # Обновляем атрибут x  а не rect
-        if self.moving_right:
+        # Обновляем атрибут x  а не rect и условие чтобы за край экрана не перемещалась тачка
+        if self.moving_right and self.rect.right < self.screen_rect.right:
             self.x += self.settings.ship_speed
-        if self.moving_left:
+        if self.moving_left and self.rect.left > 0:
             self.x -= self.settings.ship_speed
 
     #     Обновляем атрибут rect чтобы машина не стояла на месте
