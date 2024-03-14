@@ -17,8 +17,10 @@ class AlienInvasion:
         # иннициализируем settings.py с настройками
         self.settings = Settings()
 
-        #   создаем окно для игры
-        self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
+        #   создаем окно для игры на весь экран
+        self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+        self.settings.screen_width = self.screen.get_rect().width
+        self.settings.screen_height = self.screen.get_rect().height
         #   называем окно
         pygame.display.set_caption(self.settings.name_window)
 
@@ -84,7 +86,9 @@ class AlienInvasion:
         elif event.key == pygame.K_LEFT:
             print('Нажали левую клавишу')
             self.ship.moving_left = True
-
+        elif event.key == pygame.K_q:
+            print('Закрываем игру')
+            sys.exit()
     def _check_keyup_events(self, event):
         """Метод реагирующий на отпускание клавиш"""
 
