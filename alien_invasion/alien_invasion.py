@@ -3,7 +3,7 @@ import sys
 import pygame
 from settings import Settings
 from ship import Ship
-
+from bullet import Bullet
 
 class AlienInvasion:
     """Класс для управления ресурсами и поведением игры"""
@@ -27,6 +27,9 @@ class AlienInvasion:
         # Вызываем наш бумер и передаем туда весь класс alien
         self.ship = Ship(self)
 
+        """Класс для хранения и управления всеми снарядами"""
+        self.bullets = pygame.sprite.Group()
+
 
 
     def run_game(self):
@@ -37,6 +40,8 @@ class AlienInvasion:
             self._check_events()
             # Обновляется позиция коробля после проверки клавиатуры, но перед обновлением экрана
             self.ship.update()
+            """Обновляем позицию снаряда"""
+            self.bullets.update()
             self._update_screen()
 
 
@@ -72,6 +77,10 @@ class AlienInvasion:
         # Рисую бумер после цикла
         self.ship.blitme()
 
+        """Проходимся по все спрайтам и для каждого вызываем метод прорисовки"""
+        for bullet in self.bullets.sprites():
+            bullet.draw_bullet()
+
         # с каждым новым выполнением цикла while, стирает старый экран
         # print('Стираю старый экран')
         pygame.display.flip()
@@ -89,6 +98,10 @@ class AlienInvasion:
         elif event.key == pygame.K_q:
             print('Закрываем игру')
             sys.exit()
+        elif event.key == pygame.K_SPACE:
+            print('Выпускаем снаряд')
+            self.__fire_bullet()
+
     def _check_keyup_events(self, event):
         """Метод реагирующий на отпускание клавиш"""
 
@@ -98,6 +111,11 @@ class AlienInvasion:
         elif event.key == pygame.K_LEFT:
             print('Отпустиили левую клавишу')
             self.ship.moving_left = False
+
+    def __fire_bullet(self):
+        """Создание нового снаряда и включение его в группу снарядов"""
+        new_bullet = Bullet(self)
+        self.bullets.add(new_bullet)
 
 if __name__ == '__main__':
     ai = AlienInvasion()
