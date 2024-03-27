@@ -22,3 +22,6 @@ class Settings:
         self.bullet_width = 3
         self.bullet_height = 15
         self.bullet_color = (60, 60, 60)
+
+        # Максимальное число снарядов
+        self.bullets_allowed = 3

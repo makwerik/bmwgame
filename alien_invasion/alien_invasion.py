@@ -120,8 +120,9 @@ class AlienInvasion:
 
     def __fire_bullet(self):
         """Создание нового снаряда и включение его в группу снарядов"""
-        new_bullet = Bullet(self)
-        self.bullets.add(new_bullet)
+        if len(self.bullets) < self.settings.bullets_allowed:
+            new_bullet = Bullet(self)
+            self.bullets.add(new_bullet)
 
 if __name__ == '__main__':
     ai = AlienInvasion()
