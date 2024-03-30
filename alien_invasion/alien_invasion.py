@@ -40,17 +40,20 @@ class AlienInvasion:
             self._check_events()
             # Обновляется позиция коробля после проверки клавиатуры, но перед обновлением экрана
             self.ship.update()
-            """Обновляем позицию снаряда"""
-            self.bullets.update()
+            self._update_bullet()
 
-            """Удаление снарядов вышедших за край экрана"""
-            for bullet in self.bullets.copy():
-                if bullet.rect.bottom <= 0:
-                    self.bullets.remove(bullet)
+
 
             self._update_screen()
 
-
+    def _update_bullet(self):
+        """Обновляем позиции снарядов, уничтожая старые"""
+        """Обновляем позицию снаряда"""
+        self.bullets.update()
+        """Удаление снарядов вышедших за край экрана"""
+        for bullet in self.bullets.copy():
+            if bullet.rect.bottom <= 0:
+                self.bullets.remove(bullet)
 
     def _check_events(self):
 
