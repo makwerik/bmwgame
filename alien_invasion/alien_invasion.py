@@ -4,6 +4,7 @@ import pygame
 from settings import Settings
 from ship import Ship
 from bullet import Bullet
+from alien import Alien
 
 class AlienInvasion:
     """Класс для управления ресурсами и поведением игры"""
@@ -29,6 +30,10 @@ class AlienInvasion:
 
         """Класс для хранения и управления всеми снарядами"""
         self.bullets = pygame.sprite.Group()
+
+        """Класс для управления маслом"""
+        self.aliens = pygame.sprite.Group()
+        self._create_fleet()
 
 
 
@@ -75,6 +80,13 @@ class AlienInvasion:
                 self._check_keyup_events(event)
 
 
+
+    def _create_fleet(self):
+        """Создаем флот вторжения масла амахалса"""
+        # Создаем масло
+        alien = Alien(self)
+        self.aliens.add(alien)
+
     def _update_screen(self):
 
         """ Метод обновления изображений на экране и отображение нового экрана"""
@@ -89,6 +101,8 @@ class AlienInvasion:
         """Проходимся по все спрайтам и для каждого вызываем метод прорисовки"""
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
+        """Рисуем масло на экране"""
+        self.aliens.draw(self.screen)
 
         # с каждым новым выполнением цикла while, стирает старый экран
         # print('Стираю старый экран')
