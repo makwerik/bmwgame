@@ -82,11 +82,20 @@ class AlienInvasion:
 
 
     def _create_fleet(self):
-        """Создаем флот вторжения масла амахалса"""
+        """Создаем флот вторжения масла амахалса и вычисляем сколько их должно быть на экране"""
         # Создаем масло
         alien = Alien(self)
-        self.aliens.add(alien)
+        alien_width = alien.rect.width
+        available_space_x = self.settings.screen_width - (2 * alien_width)
+        number_aliens_x = available_space_x // (2 * alien_width)
 
+    #     Создаем первый ряд масла
+        for alien_number in range(number_aliens_x):
+    #         Создания масла и размещение его в ряду
+            alien = Alien(self)
+            alien.x = alien_width + 2 * alien_width * alien_number
+            alien.rect.x = alien.x
+            self.aliens.add(alien)
     def _update_screen(self):
 
         """ Метод обновления изображений на экране и отображение нового экрана"""
