@@ -6,6 +6,7 @@ from ship import Ship
 from bullet import Bullet
 from alien import Alien
 
+
 class AlienInvasion:
     """Класс для управления ресурсами и поведением игры"""
 
@@ -35,8 +36,6 @@ class AlienInvasion:
         self.aliens = pygame.sprite.Group()
         self._create_fleet()
 
-
-
     def run_game(self):
 
         """Запуск основного цикла игры"""
@@ -46,8 +45,6 @@ class AlienInvasion:
             # Обновляется позиция коробля после проверки клавиатуры, но перед обновлением экрана
             self.ship.update()
             self._update_bullet()
-
-
 
             self._update_screen()
 
@@ -71,35 +68,41 @@ class AlienInvasion:
             if event.type == pygame.QUIT:
                 print(f'Закрытие окна {event.type}')
                 sys.exit()
-            #Отслеживаем нажатие клавиш
+            # Отслеживаем нажатие клавиш
             elif event.type == pygame.KEYDOWN:
                 # Вправо нажали клавишу устанавливает флаг Тру и корабль перемещается вправо или влево пока не отпустят клавишу
                 self._check_keydown_events(event)
-    #             Отпустили клавишу
+            #             Отпустили клавишу
             elif event.type == pygame.KEYUP:
                 self._check_keyup_events(event)
-
-
 
     def _create_fleet(self):
         """Создаем флот вторжения масла амахалса и вычисляем сколько их должно быть на экране"""
         # Создаем масло
         alien = Alien(self)
-        alien_width = alien.rect.width
+        alien_width, alien_height = alien.rect.size
         available_space_x = self.settings.screen_width - (2 * alien_width)
         number_aliens_x = available_space_x // (2 * alien_width)
 
-    #     Создаем первый ряд масла
-        for alien_number in range(number_aliens_x):
-    #         Создания масла и размещение его в ряду
-            self._create_alien(alien_number)
+        """Сколько рядов помещается на экране"""
+        ship_height = self.ship.rect.height
+        available_space_y = (self.settings.screen_height - (3 * alien_height) - ship_height)
+        number_rows = available_space_y // (2 * alien_height)
 
-    def _create_alien(self, alien_number):
-            alien = Alien(self)
-            alien_width = alien.rect.width
-            alien.x = alien_width + 2 * alien_width * alien_number
-            alien.rect.x = alien.x
-            self.aliens.add(alien)
+        #     Создаем ряды масла
+        for row_number in range(number_rows):
+            for alien_number in range(number_aliens_x):
+                #  Создания масла и размещение его в ряду
+                self._create_alien(alien_number, row_number)
+
+    def _create_alien(self, alien_number, row_number):
+        alien = Alien(self)
+        alien_width, alien_height = alien.rect.size
+        alien.x = alien_width + 2 * alien_width * alien_number
+        alien.rect.x = alien.x
+        alien.rect.y = alien.rect.height + 2 * alien.rect.height * row_number
+        self.aliens.add(alien)
+
     def _update_screen(self):
 
         """ Метод обновления изображений на экране и отображение нового экрана"""
@@ -120,7 +123,6 @@ class AlienInvasion:
         # с каждым новым выполнением цикла while, стирает старый экран
         # print('Стираю старый экран')
         pygame.display.flip()
-
 
     def _check_keydown_events(self, event):
         """Метод реагирующий на нажатие клавиш"""
@@ -153,6 +155,7 @@ class AlienInvasion:
         if len(self.bullets) < self.settings.bullets_allowed:
             new_bullet = Bullet(self)
             self.bullets.add(new_bullet)
+
 
 if __name__ == '__main__':
     ai = AlienInvasion()
